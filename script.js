@@ -1,59 +1,53 @@
-// variable counter
-let dogvotesTd = parseInt(localstorage.getItem('dogVotes'));
-if (dogVotes === null){
-        dogVotes = 0;
+//onload set votes
+
+let dogVotesTd = document.querySelector("#doggo-votes")
+let dogVotes = localStorage.getItem('dogVotes');
+if (dogVotes === null) {
+    dogVotes = 0;
 } else {
     dogVotes = parseInt(dogVotes)
 }
+dogVotesTd.textContent = dogVotes;
 
-let catvotes = parseInt(localstorage.getItem('catVotes'));
-let fishvotes = parseInt(localstorage.getItem('fishVotes'));
 
-    // selectors
-    let dogDiv = document.querySelector('#doggo');
-    let catDiv = document.querySelector('#catto');
-    let fishDiv = document.querySelector('#fish');
-    
-    // created and appended dog vote button
-    let dogvoteBtn = document.createElement('button');
-    button.textContent = 'doggo vote';
-    dogDiv.append(button);
 
-    dogvoteBtn.addEventListener('click', function(){
-        dogvotes = dogvotes + 1;
-    document.querySelector("#doggo-votes").textContent = dogvotes;
+
+let catVotes = 0;
+let fishVotes = 0;
+
+let totalVotesTd = document.querySelector("#total-votes");
+totalVotesTd.textContent = dogVotes + catVotes + fishVotes;
+
+
+// selectors for each individual animal div
+let dogDiv = document.querySelector("#doggo");
+let catDiv = document.querySelector("#catto");
+let fishDiv = document.querySelector("#fish");
+
+
+// created and append dog vote button
+let dogVoteBtn = document.createElement('button');
+dogVoteBtn.textContent = "Vote for Doggo";
+dogDiv.append(dogVoteBtn);
+
+dogVoteBtn.addEventListener('click', function(){
+    dogVotes = dogVotes + 1;
+    dogVotesTd.textContent = dogVotes;
     localStorage.setItem('dogVotes', dogVotes);
-    
-    document.querySelector("#total-votes").textContent = dogvotes + catvotes + fishvotes
 
-    })
-
-
-    // created and appended cat vote button
-    let catvoteBtn = document.createElement('button');
-    button.textContent = 'cat vote';
-    catDiv.append(button);
-
-    catvoteBtn.addEventListener('click', function(){
-        catvotes = carvotes + 1;
-    document.querySelector("#catto-votes").textContent = catvotes;
-   
-    document.querySelector("#total-votes").textContent = dogvotes + catvotes + fishvotes  
+    totalVotesTd.textContent = dogVotes + catVotes + fishVotes;
 })
 
 
-    // created and appended fish vote button
-    let fishvoteBtn = document.createElement('button');
-    button.textContent = 'fish vote';
-    fishDiv.append(button);
+// create dog vote (-) button
+let SubdogVoteBtn = document.createElement("button")
+SubdogVoteBtn.textContent = "REMOVE vote for Doggo"
+dogDiv.append(SubdogVoteBtn)
 
-   fishvoteBtn.addEventListener('click', function(){
-        fishvotes = fishvotes + 1;
-    document.querySelector("#fish-votes").textContent = fishvotes;
-   
-    document.querySelector("#total-votes").textContent = dogvotes + catvotes + fishvotes
-    })
-
-   
-    
-    
+SubdogVoteBtn.addEventListener('click', function(e) {
+        dogVotes = dogVotes - 1;
+        dogVotesTd.textContent = dogVotes;
+        localStorage.setItem('dogVotes', dogVotes);
+        
+        totalVotesTd.textContent = dogVotes + catVotes + fishVotes
+});
